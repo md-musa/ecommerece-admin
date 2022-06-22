@@ -5,6 +5,7 @@ import { FaUsers } from 'react-icons/fa';
 import { BiFoodMenu } from 'react-icons/bi';
 import { AiOutlineTransaction } from 'react-icons/ai';
 import { VscListTree } from 'react-icons/vsc';
+import { IoIosAdd } from 'react-icons/io';
 
 import { useNavigate } from 'react-router-dom';
 function Sidebar() {
@@ -15,7 +16,7 @@ function Sidebar() {
         className="object-contain w-28 mx-auto py-3"
         src="https://nwafoundation.org/wp-content/uploads/2017/04/FedEx-Logo-PNG-Transparent.png"
         alt=""
-        srcset=""
+        secSet=""
       />
 
       <div
@@ -47,6 +48,13 @@ function Sidebar() {
       </div>
 
       <div
+        onClick={() => navigate('/addNewProduct')}
+        className="flex items-center text-semibold cursor-pointer text-xl px-5 py-3 hover:rounded-r-full hover:bg-gray-200"
+      >
+        <IoIosAdd /> <p className="mx-2">Add new Product</p>
+      </div>
+
+      <div
         onClick={() => navigate('/transaction')}
         className="flex items-center text-semibold cursor-pointer text-xl px-5 py-3 hover:rounded-r-full hover:bg-gray-200"
       >
@@ -57,7 +65,7 @@ function Sidebar() {
         onClick={() => navigate('/categories')}
         className="flex items-center text-semibold cursor-pointer text-xl px-5 py-3 hover:rounded-r-full hover:bg-gray-200"
       >
-        <VscListTree /> <p className="mx-2">Transactions</p>
+        <VscListTree /> <p className="mx-2">Categories</p>
       </div>
     </div>
   );
