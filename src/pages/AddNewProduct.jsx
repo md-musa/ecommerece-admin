@@ -1,3 +1,7 @@
+import { Select } from '@mui/material';
+import { MenuItem } from '@mui/material';
+import { InputLabel } from '@mui/material';
+import { FormControl } from '@mui/material';
 import axios from 'axios';
 import { fi } from 'date-fns/locale';
 import React, { useContext, useEffect, useState } from 'react';
@@ -32,6 +36,7 @@ function AddNewProduct() {
     try {
       const { data } = await axios.post('/products', formData);
       console.log(data);
+      if (data) alert('Success!', data);
     } catch (err) {
       console.log(err);
     }
@@ -52,9 +57,12 @@ function AddNewProduct() {
   }, []);
 
   const [subCategories, setSubCategories] = useState([]);
-  function getSubCategories(parentCategoryId) {
+  const [parent, setParent] = useState('');
+
+  function getSubCategories(parentSlug) {
+    setParent(parentSlug);
     const _subCategories = categories.filter(
-      category => category._id === parentCategoryId
+      category => category.slug === parentSlug
     );
     console.log(_subCategories);
     setSubCategories(_subCategories[0].subCategories);
@@ -73,28 +81,38 @@ function AddNewProduct() {
           onChange={e => setTitle(e.target.value)}
           required
         />
-        {/* <p className="text-lg pt-2  text-gray-500">Category</p>
-        <input
-          className="px-3 w-1/2 py-2 rounded-md outline-none border shadow-md"
-          type="text"
-          name=""
-          id=""
-          value={category}
-          onChange={e => setCategory(e.target.value)}
-          required
-        /> */}
-        <select onChange={e => getSubCategories(e.target.value)}>
-          <option>Select Category</option>
+
+        {/* <FormControl > */}
+        <InputLabel id="demo-simple-select-label">
+          Select Parent Category
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={parent}
+          label="Age"
+          onChange={e => getSubCategories(e.target.value)}
+        >
           {categories.map(category => (
-            <option value={category._id}>{category.name}</option>
+            <MenuItem value={category.slug}>{category.name}</MenuItem>
           ))}
-        </select>
-        <select onChange={e => setCategory(e.target.value)}>
-          <option>Select Category</option>
+        </Select>
+
+        <InputLabel id="demo-simple-select-label">
+          Select sub-category
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={parent}
+          label="Age"
+          onChange={e => setCategory(e.target.value)}
+        >
           {subCategories.map(category => (
-            <option value={category._id}>{category.name}</option>
+            <MenuItem value={category.slug}>{category.name}</MenuItem>
           ))}
-        </select>
+        </Select>
+        {/* </FormControl> */}
 
         <p className="text-lg pt-2  text-gray-500">Brand</p>
         <input
@@ -142,10 +160,13 @@ function AddNewProduct() {
         ></textarea>
 
         <p className="text-lg pt-2  text-gray-500">Image</p>
+        <small className="text-red-600">Select at least 2 images</small>
+        <br />
         <input
           type="file"
           name=""
           id=""
+          accept="image/*"
           multiple
           onChange={e => setImages(e.target.files)}
           required

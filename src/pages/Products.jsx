@@ -6,12 +6,13 @@ import axios from 'axios';
 
 function Products() {
   const [products, setProducts] = useState([]);
+  console.log('products--->', products);
 
   useEffect(() => {
     async function getProducts() {
       const { data } = await axios.get('/products');
       console.log(data);
-      setProducts(data.products);
+      setProducts(data);
     }
     getProducts();
   }, []);

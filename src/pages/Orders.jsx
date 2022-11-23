@@ -12,6 +12,7 @@ function Orders() {
   useEffect(() => {
     async function getOrders() {
       const { data } = await axios.get('/orders');
+      console.log('orders', data.orders);
       setOrders(data.orders);
     }
     getOrders();
@@ -48,7 +49,7 @@ function Orders() {
           <tr className="border-b h-10 bg-white hover:bg-gray-100 text-lg">
             <td>{'ID'}</td>
             <td>{'User'}</td>
-            <td>{order.items.length}</td>
+            <td>{order.products.length}</td>
             <td>{format(new Date(order.date), 'dd-MM-yyyy')}</td>
             <td>${order.total}</td>
             <td>

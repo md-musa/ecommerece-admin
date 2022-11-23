@@ -15,7 +15,7 @@ import ProductDetails from './pages/ProductDetails';
 import Products from './pages/Products';
 import Transactions from './pages/Transactions';
 
-//const baseURL = 'https://ecommerce50.herokuapp.com/api'
+// const baseURL = 'https://ecommerce50.herokuapp.com/api';
 const baseURL = 'http://localhost:5000/api';
 const userInfo = JSON.parse(localStorage.getItem('user')) || null;
 axios.defaults.baseURL = baseURL;
